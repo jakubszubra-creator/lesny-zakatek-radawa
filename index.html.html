@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leśny Zakątek Radawa - SPA & Premium Relax</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-green: #1b3022;
+            --gold: #c5a059;
+            --beige: #fdfbf7;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --text: #2c2c2c;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; line-height: 1.6; color: var(--text); background: var(--white); }
+        
+        /* Hero Section */
+        header { 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://u.profitroom.pl/2018-bacowkaradawa-pl/thumb/1920x810/uploads/DJI_0980-HDR1.jpg') no-repeat center center/cover;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 10px; text-shadow: 2px 2px 15px rgba(0,0,0,0.5); }
+        .hero-tags { font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); font-weight: 600; }
+
+        nav { background: var(--white); padding: 1rem; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; box-shadow: 0 2px 15px rgba(0,0,0,0.1); flex-wrap: wrap; }
+        nav a { color: var(--dark-green); text-decoration: none; margin: 5px 15px; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: color 0.3s; }
+        nav a:hover { color: var(--gold); }
+
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark-green); margin-bottom: 50px; text-align: center; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
+
+        /* Slider i Galeria */
+        .cabin-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 40px; }
+        .slider-wrapper { position: relative; width: 100%; overflow: hidden; border-radius: 20px; box-shadow: var(--shadow); }
+        .slider { display: flex; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); cursor: zoom-in; }
+        .slider img { width: 100%; flex-shrink: 0; height: 480px; object-fit: cover; }
+        
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.9); color: var(--dark-green); border: none; width: 50px; height: 50px; cursor: pointer; border-radius: 50%; font-size: 20px; z-index: 10; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .nav-btn:hover { background: var(--gold); color: white; }
+        .prev { left: 20px; } .next { right: 20px; }
+
+        /* SPA Section */
+        .spa-section { background: linear-gradient(180deg, var(--dark-green) 0%, #122218 100%); color: white; padding: 100px 20px; max-width: 100%; }
+        .spa-inner { max-width: 1200px; margin: auto; }
+        .spa-inner h2 { color: var(--gold); }
+        .spa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .spa-card { background: rgba(255,255,255,0.03); padding: 45px; border-radius: 20px; border: 1px solid rgba(197, 160, 89, 0.2); text-align: center; transition: 0.3s; }
+        .spa-card:hover { border-color: var(--gold); background: rgba(255,255,255,0.06); }
+        .spa-card h3 { color: var(--gold); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .spa-images { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 50px; }
+        .spa-images img { width: 100%; height: 380px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(197, 160, 89, 0.2); cursor: zoom-in; transition: 0.4s; }
+        .spa-images img:hover { transform: scale(1.02); border-color: var(--gold); }
+
+        /* Wyposażenie i Atrakcje */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-card { background: var(--white); padding: 35px; border-radius: 20px; height: 100%; box-shadow: var(--shadow); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card h4 { color: var(--dark-green); margin-bottom: 20px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; border-left: 4px solid var(--gold); padding-left: 15px; }
+        .feature-card ul { list-style: none; font-size: 0.95rem; }
+        .feature-card li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .feature-card li::before { content: "•"; position: absolute; left: 0; color: var(--gold); font-weight: bold; }
+
+        /* Cennik - Poprawiony */
+        .price-panel { background: var(--dark-green); color: white; padding: 50px 30px; border-radius: 40px; text-align: center; max-width: 700px; margin: 40px auto; border: 1px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .price-panel h2 { color: var(--gold); margin-bottom: 25px; font-size: 2rem; }
+        .price-panel h2::after { margin: 10px auto 0; width: 40px; }
+        .price-tag { font-size: 2.8rem; color: var(--gold); font-weight: 700; margin: 10px 0; }
+        .price-sub { font-size: 1.1rem; margin-bottom: 20px; display: block; letter-spacing: 1px; }
+
+        /* Opinie */
+        .reviews-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+        .review-card { background: var(--white); padding: 40px; border-radius: 25px; box-shadow: var(--shadow); text-align: center; font-style: italic; }
+        .stars { color: var(--gold); margin-bottom: 15px; font-size: 1.2rem; }
+
+        .btn-cta { background: var(--gold); color: white; padding: 20px 50px; text-decoration: none; border-radius: 50px; display: inline-block; font-weight: 600; margin-top: 30px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2); }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(197, 160, 89, 0.3); background: #d4af6a; }
+
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); justify-content: center; align-items: center; }
+        .lightbox img { max-width: 90%; max-height: 85%; border-radius: 5px; border: 1px solid var(--gold); }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 60px; cursor: pointer; user-select: none; padding: 20px; transition: 0.3s; opacity: 0.7; }
+        .lb-nav:hover { opacity: 1; }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; color: white; font-size: 50px; cursor: pointer; }
+
+        footer { background: #0c1610; color: white; text-align: center; padding: 60px 20px; font-size: 0.85rem; }
+
+        @media (max-width: 850px) { 
+            .cabin-container { grid-template-columns: 1fr; } 
+            .slider img { height: 350px; } 
+            .spa-images { grid-template-columns: 1fr; }
+            section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Leśny Zakątek</h1>
+        <p class="hero-tags">Prywatne SPA • Rodzinna Atmosfera • Radawa</p>
+        <a href="#kontakt" class="btn-cta">Zarezerwuj teraz</a>
+    </header>
+
+    <nav>
+        <a href="#o-domku">O Domku</a>
+        <a href="#spa">Strefa SPA</a>
+        <a href="#wyposazenie">Wyposażenie</a>
+        <a href="#atrakcje">Atrakcje</a>
+        <a href="#cennik">Cennik</a>
+        <a href="#opinie">Opinie</a>
+    </nav>
+
+    <section id="o-domku">
+        <div class="cabin-container">
+            <div>
+                <h2>Nowoczesne domki rodzinne</h2>
+                <p>Odkryj spokój w sercu Radawy. Oferujemy dwa całoroczne domki dla rodzin (do 6 osób), położone na niezależnych działkach. Każdy z nich gwarantuje pełną intymność i najwyższy standard wyposażenia.</p>
+                <br>
+                <p>Na terenie obiektu znajduje się bezpieczny parking oraz duży plac zabaw dla najmłodszych gości. Zwierzęta są u nas mile widziane – całkowicie bezpłatnie!</p>
+            </div>
+            <div class="slider-wrapper">
+                <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="slider" id="mainSlider">
+                    <img src="https://ireland.apollo.olxcdn.com/v1/files/mzf35arl9lf12-PL/image;s=1000x700" class="gallery-img">
+                    <img src="https://ireland.apollo.olxcdn.com/v1/files/lwgy684ztkwt3-PL/image;s=1000x700" class="gallery-img">
+                    <img src="https://ireland.apollo.olxcdn.com/v1/files/nq9sw3kt794v2-PL/image;s=1000x700" class="gallery-img">
+                    <img src="https://ireland.apollo.olxcdn.com/v1/files/gkxbb1oyjtxu-PL/image;s=1000x700" class="gallery-img">
+                </div>
+                <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="spa-section" id="spa">
+        <div class="spa-inner">
+            <h2>Prywatna Strefa SPA & Relax</h2>
+            <div class="spa-grid">
+                <div class="spa-card">
+                    <h3>Jacuzzi & Sauna</h3>
+                    <p>Gorąca balia z aromaterapią oraz sauna dostępna tylko dla Was 24h na wyłączność.</p>
+                </div>
+                <div class="spa-card">
+                    <h3>Prywatny Grill</h3>
+                    <p>Własny betonowy grill oraz grill elektryczny na prywatnym, zadaszonym tarasie.</p>
+                </div>
+                <div class="spa-card">
+                    <h3>Prywatność</h3>
+                    <p>Domki na osobnych działkach. Wasz taras to Wasza wyłączna i nienaruszalna strefa relaksu.</p>
+                </div>
+            </div>
+            <div class="spa-images">
+                <img src="https://ireland.apollo.olxcdn.com/v1/files/yvevn60ac8n23-PL/image;s=1000x700" class="gallery-img">
+                <img src="https://ireland.apollo.olxcdn.com/v1/files/x5xsyji2xw3e1-PL/image;s=1000x700" class="gallery-img">
+            </div>
+        </div>
+    </div>
+
+    <section id="wyposazenie">
+        <h2>Wyposażenie Premium</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h4>Wnętrze</h4>
+                <ul>
+                    <li>Salon z TV LCD i klimatyzacją</li>
+                    <li>Sypialnia małżeńska + 4 łóżka</li>
+                    <li>Łazienka z prysznicem i suszarką</li>
+                    <li>Ręczniki, pościel, koce</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>Kuchnia</h4>
+                <ul>
+                    <li>Zmywarka i kostkarka do lodu</li>
+                    <li>Ekspres, toster, opiekacz</li>
+                    <li>Lodówka, mikrofala, płyta</li>
+                    <li>Kawa, herbata, przyprawy</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>Rozrywka</h4>
+                <ul>
+                    <li>Gokarty na pedały (3 szt.)</li>
+                    <li>Piłkarzyki i boisko</li>
+                    <li>Duży plac zabaw dla dzieci</li>
+                    <li>Miejsce na ognisko i kije</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="atrakcje" style="background: var(--light-gray); max-width: 100%; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+        <div style="max-width: 1200px; margin: auto; padding: 20px;">
+            <h2>Atrakcje w okolicy</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Natura i Relaks</h4>
+                    <ul>
+                        <li>Zalew i piaszczysta plaża (10 min)</li>
+                        <li>Piękne lasy sosnowe (dużo jodu)</li>
+                        <li>Trasy rowerowe i Nordic Walking</li>
+                        <li>Wędkowanie w rzece</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Aktywny czas</h4>
+                    <ul>
+                        <li>Spływy kajakowe</li>
+                        <li>Park linowy</li>
+                        <li>Mini Zoo i stadnina koni</li>
+                        <li>Przejażdżki bryczką</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Rozrywka</h4>
+                    <ul>
+                        <li>Koncerty i dyskoteki (w sezonie)</li>
+                        <li>Projekcje filmów pod niebem</li>
+                        <li>Boisko Orlik</li>
+                        <li>Liczne place zabaw</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cennik">
+        <div class="price-panel">
+            <h2>Ceny i Rezerwacja</h2>
+            <span class="price-sub">Poza sezonem (wrzesień - czerwiec):</span>
+            <div class="price-tag">od 1000 PLN</div>
+            <p>Sezon wakacyjny: pobyty min. 6 dób</p>
+            <p style="margin-top:15px; opacity:0.8; font-size: 0.9rem;">Zadatek: 400 PLN | Doba: 14:00 - 11:00</p>
+        </div>
+    </section>
+
+    <section id="opinie">
+        <h2>Opinie gości</h2>
+        <div class="reviews-container">
+            <div class="review-card"><div class="stars">★★★★★</div><p>"Prywatne SPA 24h to coś niesamowitego. Dzieciaki zachwycone gokartami!"</p></div>
+            <div class="review-card"><div class="stars">★★★★★</div><p>"Czysto, intymnie i bardzo wysoki standard wyposażenia. Na pewno wrócimy."</p></div>
+            <div class="review-card"><div class="stars">★★★★★</div><p>"Najlepszy wybór w Radawie. Teren bezpieczny, ogrodzony, świetny dla rodzin."</p></div>
+        </div>
+    </section>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <span class="lb-nav lb-prev" onclick="changeLbImg(-1)">&#10094;</span>
+        <img id="lightbox-img" src="">
+        <span class="lb-nav lb-next" onclick="changeLbImg(1)">&#10095;</span>
+    </div>
+
+    <section id="kontakt" style="text-align: center; padding: 100px 20px;">
+        <h2>Zapytaj o termin</h2>
+        <p style="font-size: 2.2rem; font-weight: 700; color: var(--dark-green); margin: 20px 0;">+48 123 456 789</p>
+        <a href="https://wa.me/48123456789" class="btn-cta" style="background: #25D366; border: none;">Napisz na WhatsApp</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Leśny Zakątek Radawa. Premium Family Resort.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const allImgs = Array.from(document.querySelectorAll('.gallery-img'));
+        let lbIndex = 0;
+
+        function moveSlide(step) {
+            const slider = document.getElementById('mainSlider');
+            const slides = slider.getElementsByTagName('img');
+            currentSlide = (currentSlide + step + slides.length) % slides.length;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        allImgs.forEach((img, index) => {
+            img.onclick = () => {
+                lbIndex = index;
+                openLightbox();
+            };
+        });
+
+        function openLightbox() {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updateLbImg();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLbImg(step) {
+            lbIndex = (lbIndex + step + allImgs.length) % allImgs.length;
+            updateLbImg();
+        }
+
+        function updateLbImg() {
+            document.getElementById('lightbox-img').src = allImgs[lbIndex].src;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').style.display === 'flex') {
+                if (e.key === 'ArrowLeft') changeLbImg(-1);
+                if (e.key === 'ArrowRight') changeLbImg(1);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
